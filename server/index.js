@@ -16,19 +16,20 @@ app.prepare().then(() => {
     return res.json(moviesData);
   });
 
+  server.get('/api/v1/movies/:id', (req, res) => {
+    const { id } = req.params;
+    const movie = moviesData.find(m => m.id === id);
+    return res.json(movie);
+  });
+
   server.post('/api/v1/movies', (req, res) => {
     const movie = req.body;
     console.log(JSON.stringify(movie));
     return res.json({ ...movie, createdTime: 'today', author: 'Filip' });
   });
 
-  server.get('/api/v1/movies/:id', (req, res) => {
-    const { id } = res.params;
-    return res.json({ message: `Updating post of id ${id}` });
-  });
-
-  server.get('/api/v1/movies/:id', (req, res) => {
-    const { id } = res.params;
+  server.delete('/api/v1/movies/:id', (req, res) => {
+    const { id } = req.params;
     return res.json({ message: `Deleting post of id ${id}` });
   });
 
